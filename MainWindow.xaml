@@ -1,0 +1,308 @@
+<Window x:Class="LancelotWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ООО «ПО «ЛАНЦЕЛОТ» — Система управления"
+        Width="1200" Height="740"
+        MinWidth="960" MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BgDeep}"
+        WindowStyle="None" AllowsTransparency="True">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolVis"/>
+    </Window.Resources>
+
+    <Border CornerRadius="12" BorderBrush="{StaticResource GoldDim}" BorderThickness="1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="{StaticResource BgPanel}" CornerRadius="12,0,0,12">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="20,28,20,20">
+                        <TextBlock Text="LANCELOT" Foreground="{StaticResource GoldBrush}"
+                                   FontSize="22" FontWeight="Black" FontFamily="Palatino Linotype"/>
+                        <Rectangle Height="1" Fill="{StaticResource GoldDim}" Margin="0,10,0,2"/>
+                        <TextBlock Text="Система управления" Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Margin="0,10,0,0">
+                        <RadioButton Style="{StaticResource NavBtn}" Content="Дашборд" Tag="⬛"
+                                     x:Name="NavDash" GroupName="Nav" IsChecked="True"
+                                     Checked="NavDash_Checked"/>
+                        <RadioButton Style="{StaticResource NavBtn}" Content="Товары" Tag="📦"
+                                     x:Name="NavProducts" GroupName="Nav" Checked="NavProducts_Checked"/>
+                        <RadioButton Style="{StaticResource NavBtn}" Content="Бренды" Tag="🏷"
+                                     x:Name="NavBrands" GroupName="Nav" Checked="NavBrands_Checked"/>
+                        <RadioButton Style="{StaticResource NavBtn}" Content="Магазины" Tag="🏪"
+                                     x:Name="NavStores" GroupName="Nav" Checked="NavStores_Checked"/>
+                        <RadioButton Style="{StaticResource NavBtn}" Content="Заказы" Tag="📋"
+                                     x:Name="NavOrders" GroupName="Nav" Checked="NavOrders_Checked"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Margin="20,0,20,18">
+                        <Rectangle Height="1" Fill="{StaticResource BorderBrush2}" Margin="0,0,0,12"/>
+                        <TextBlock Text="v 1.0  ·  2024" Foreground="{StaticResource TextSecondary}"
+                                   FontSize="11" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="{StaticResource BgDeep}"
+                        MouseLeftButtonDown="TitleBar_MouseDown" CornerRadius="0,12,0,0">
+                    <Grid>
+                        <TextBlock x:Name="TbPageTitle" Text="Дашборд"
+                                   Foreground="{StaticResource TextPrimary}"
+                                   FontSize="15" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                                    Margin="0,0,12,0" VerticalAlignment="Center">
+                            <Button Content="—" Width="32" Height="28" FontSize="14"
+                                    Background="Transparent" Foreground="{StaticResource TextSecondary}"
+                                    BorderThickness="0" Cursor="Hand" Click="BtnMinimize_Click"/>
+                            <Button Content="✕" Width="32" Height="28" FontSize="13"
+                                    Background="Transparent" Foreground="{StaticResource TextSecondary}"
+                                    BorderThickness="0" Cursor="Hand" Click="BtnClose_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="1" Padding="24,16,24,20">
+                    <Grid>
+
+                        <!-- DASHBOARD -->
+                        <ScrollViewer x:Name="PageDash" Visibility="Visible"
+                                      VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <TextBlock Text="Обзор предприятия"
+                                           Foreground="{StaticResource TextSecondary}"
+                                           FontSize="12" Margin="0,0,0,18"/>
+                                <UniformGrid Columns="4" Margin="0,0,0,24">
+                                    <Border Margin="0,0,12,0" Background="{StaticResource BgCard}"
+                                            CornerRadius="8" Padding="18,16">
+                                        <StackPanel>
+                                            <TextBlock Text="ТОВАРЫ" Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                                            <TextBlock x:Name="KpiProducts" Text="—"
+                                                       Foreground="{StaticResource GoldBrush}"
+                                                       FontSize="32" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            <TextBlock Text="наименований" Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Margin="0,0,12,0" Background="{StaticResource BgCard}"
+                                            CornerRadius="8" Padding="18,16">
+                                        <StackPanel>
+                                            <TextBlock Text="МАГАЗИНЫ" Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                                            <TextBlock x:Name="KpiStores" Text="—"
+                                                       Foreground="{StaticResource GoldBrush}"
+                                                       FontSize="32" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            <TextBlock Text="торговых точек" Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Margin="0,0,12,0" Background="{StaticResource BgCard}"
+                                            CornerRadius="8" Padding="18,16">
+                                        <StackPanel>
+                                            <TextBlock Text="ЗАКАЗЫ" Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                                            <TextBlock x:Name="KpiOrders" Text="—"
+                                                       Foreground="{StaticResource GoldBrush}"
+                                                       FontSize="32" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            <TextBlock Text="всего заказов" Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Background="{StaticResource BgCard}"
+                                            CornerRadius="8" Padding="18,16">
+                                        <StackPanel>
+                                            <TextBlock Text="ВЫРУЧКА" Foreground="{StaticResource TextSecondary}" FontSize="10"/>
+                                            <TextBlock x:Name="KpiRevenue" Text="—"
+                                                       Foreground="{StaticResource GoldBrush}"
+                                                       FontSize="26" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            <TextBlock Text="руб. сумма заказов" Foreground="{StaticResource TextSecondary}" FontSize="11"/>
+                                        </StackPanel>
+                                    </Border>
+                                </UniformGrid>
+
+                                <TextBlock Text="БРЕНДЫ" Foreground="{StaticResource TextSecondary}"
+                                           FontSize="10" Margin="0,0,0,10"/>
+                                <Border Background="{StaticResource BgCard}" CornerRadius="8" Padding="0,0,0,8">
+                                    <DataGrid x:Name="DashBrandsGrid" Style="{StaticResource GoldGrid}" MaxHeight="220"/>
+                                </Border>
+
+                                <TextBlock Text="ПОСЛЕДНИЕ ЗАКАЗЫ" Foreground="{StaticResource TextSecondary}"
+                                           FontSize="10" Margin="0,24,0,10"/>
+                                <Border Background="{StaticResource BgCard}" CornerRadius="8" Padding="0,0,0,8">
+                                    <DataGrid x:Name="DashOrdersGrid" Style="{StaticResource GoldGrid}" MaxHeight="220"/>
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <!-- PRODUCTS -->
+                        <Grid x:Name="PageProducts" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="TbProductSearch" Style="{StaticResource GoldTextBox}"
+                                         Width="280" HorizontalAlignment="Left"
+                                         TextChanged="ProductSearch_Changed"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Content="＋ Добавить" Style="{StaticResource GoldBtn}"
+                                            Click="BtnAddProduct_Click" Margin="0,0,8,0"/>
+                                    <Button Content="✎ Изменить" Style="{StaticResource GhostBtn}"
+                                            Click="BtnEditProduct_Click" Margin="0,0,8,0"/>
+                                    <Button Content="🗑 Удалить" Style="{StaticResource RedBtn}"
+                                            Click="BtnDeleteProduct_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Border Grid.Row="1" Background="{StaticResource BgCard}" CornerRadius="8" Padding="0,0,0,8">
+                                <DataGrid x:Name="ProductsGrid" Style="{StaticResource GoldGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Артикул"   Binding="{Binding Article}"   Width="110"/>
+                                        <DataGridTextColumn Header="Название"  Binding="{Binding Name}"      Width="*"/>
+                                        <DataGridTextColumn Header="Бренд"     Binding="{Binding Brand}"     Width="110"/>
+                                        <DataGridTextColumn Header="Категория" Binding="{Binding Category}"  Width="110"/>
+                                        <DataGridTextColumn Header="Размер"    Binding="{Binding Size}"      Width="70"/>
+                                        <DataGridTextColumn Header="Цвет"      Binding="{Binding Color}"     Width="100"/>
+                                        <DataGridTextColumn Header="Цена, ₽"   Binding="{Binding Price}"     Width="90"/>
+                                        <DataGridTextColumn Header="Остаток"   Binding="{Binding Stock}"     Width="80"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+
+                        <!-- BRANDS -->
+                        <Grid x:Name="PageBrands" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Торговые марки предприятия"
+                                           Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Content="＋ Добавить" Style="{StaticResource GoldBtn}"
+                                            Click="BtnAddBrand_Click" Margin="0,0,8,0"/>
+                                    <Button Content="🗑 Удалить" Style="{StaticResource RedBtn}"
+                                            Click="BtnDeleteBrand_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Border Grid.Row="1" Background="{StaticResource BgCard}" CornerRadius="8" Padding="0,0,0,8">
+                                <DataGrid x:Name="BrandsGrid" Style="{StaticResource GoldGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="ID"        Binding="{Binding BrandId}"     Width="50"/>
+                                        <DataGridTextColumn Header="Название"  Binding="{Binding Name}"        Width="150"/>
+                                        <DataGridTextColumn Header="Сегмент"   Binding="{Binding Segment}"     Width="100"/>
+                                        <DataGridTextColumn Header="Описание"  Binding="{Binding Description}" Width="*"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+
+                        <!-- STORES -->
+                        <Grid x:Name="PageStores" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Розничная сеть"
+                                           Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Content="＋ Добавить" Style="{StaticResource GoldBtn}"
+                                            Click="BtnAddStore_Click" Margin="0,0,8,0"/>
+                                    <Button Content="🗑 Удалить" Style="{StaticResource RedBtn}"
+                                            Click="BtnDeleteStore_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Border Grid.Row="1" Background="{StaticResource BgCard}" CornerRadius="8" Padding="0,0,0,8">
+                                <DataGrid x:Name="StoresGrid" Style="{StaticResource GoldGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Название" Binding="{Binding Name}"      Width="*"/>
+                                        <DataGridTextColumn Header="Город"    Binding="{Binding City}"      Width="140"/>
+                                        <DataGridTextColumn Header="Адрес"    Binding="{Binding Address}"   Width="220"/>
+                                        <DataGridTextColumn Header="Тип"      Binding="{Binding StoreType}" Width="100"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+
+                        <!-- ORDERS -->
+                        <Grid x:Name="PageOrders" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="160"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0,0,0,14">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="Журнал заказов"
+                                           Foreground="{StaticResource TextSecondary}" FontSize="12"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Content="＋ Новый заказ" Style="{StaticResource GoldBtn}"
+                                            Click="BtnAddOrder_Click" Margin="0,0,8,0"/>
+                                    <Button Content="🗑 Удалить" Style="{StaticResource RedBtn}"
+                                            Click="BtnDeleteOrder_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <Border Grid.Row="1" Background="{StaticResource BgCard}" CornerRadius="8" Padding="0,0,0,8">
+                                <DataGrid x:Name="OrdersGrid" Style="{StaticResource GoldGrid}"
+                                          SelectionChanged="OrdersGrid_SelectionChanged">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="№"        Binding="{Binding OrderId}"     Width="50"/>
+                                        <DataGridTextColumn Header="Магазин"  Binding="{Binding Store}"       Width="*"/>
+                                        <DataGridTextColumn Header="Дата"     Binding="{Binding OrderDate}"   Width="130"/>
+                                        <DataGridTextColumn Header="Статус"   Binding="{Binding Status}"      Width="120"/>
+                                        <DataGridTextColumn Header="Сумма, ₽" Binding="{Binding TotalAmount}" Width="110"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                            <TextBlock Grid.Row="2" Text="СОСТАВ ЗАКАЗА"
+                                       Foreground="{StaticResource TextSecondary}"
+                                       FontSize="10" Margin="0,14,0,8"/>
+                            <Border Grid.Row="3" Background="{StaticResource BgCard}" CornerRadius="8" Padding="0,0,0,8">
+                                <DataGrid x:Name="OrderItemsGrid" Style="{StaticResource GoldGrid}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Товар"    Binding="{Binding Product}"   Width="*"/>
+                                        <DataGridTextColumn Header="Кол-во"   Binding="{Binding Quantity}"  Width="80"/>
+                                        <DataGridTextColumn Header="Цена, ₽"  Binding="{Binding UnitPrice}" Width="100"/>
+                                        <DataGridTextColumn Header="Итого, ₽" Binding="{Binding Total}"     Width="110"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Border>
+                        </Grid>
+
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
