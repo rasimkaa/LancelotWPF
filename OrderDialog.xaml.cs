@@ -8,8 +8,8 @@ namespace LancelotWPF
 {
     public record OrderItemRow(int ProductId, string Label, int Quantity, decimal Price)
     {
-        public string Total => $"{Quantity * Price:N0} ₽";
-        public string PriceStr => $"{Price:N0} ₽";
+        public string Total => $"{Quantity * Price:N0} руб.";
+        public string PriceStr => $"{Price:N0} руб.";
     }
 
     public partial class OrderDialog : Window
@@ -33,7 +33,7 @@ namespace LancelotWPF
 
             // Товары
             var products = DB.Query(@"SELECT ProductId, 
-        Article+' — '+Name+' ('+FORMAT(Price,'N0')+' ₽)' AS Label, 
+        Article+' — '+Name+' ('+FORMAT(Price,'N0')+' руб.)' AS Label, 
         Price FROM Products ORDER BY Article");
             CbProduct.ItemsSource = products.DefaultView;
             CbProduct.DisplayMemberPath = "Label";
@@ -66,7 +66,7 @@ namespace LancelotWPF
         {
             decimal total = 0;
             foreach (var it in _items) total += it.Quantity * it.Price;
-            TbTotal.Text = $"{total:N0} ₽";
+            TbTotal.Text = $"{total:N0} руб.";
         }
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)

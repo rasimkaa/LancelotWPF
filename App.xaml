@@ -99,8 +99,8 @@
         </Style>
 
         <!-- ══════════════════════════════════════════════
-             COMBOBOX
-        ══════════════════════════════════════════════ -->
+     COMBOBOX
+══════════════════════════════════════════════ -->
         <Style TargetType="ComboBox" x:Key="GoldCombo">
             <Setter Property="Background"        Value="#1E1E1E"/>
             <Setter Property="Foreground"        Value="{StaticResource TextPrimary}"/>
@@ -111,31 +111,51 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <Border Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="4,4,0,0">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition Width="26"/>
-                                    </Grid.ColumnDefinitions>
-                                    <ContentPresenter Grid.Column="0"
-                                        Content="{TemplateBinding SelectionBoxItem}"
-                                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                        Margin="8,6" VerticalAlignment="Center"/>
-                                    <Path Grid.Column="1" Data="M0,0 L4,5 L8,0"
-                                          Stroke="{StaticResource GoldBrush}" StrokeThickness="1.5"
-                                          VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                </Grid>
-                            </Border>
-                            <Popup x:Name="PART_Popup" IsOpen="{TemplateBinding IsDropDownOpen}"
-                                   AllowsTransparency="True" Focusable="False">
+                        <Grid x:Name="templateRoot">
+                            <ToggleButton x:Name="toggleButton"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Focusable="False" ClickMode="Press">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="4,4,0,0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="26"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Path Grid.Column="1" Data="M0,0 L4,5 L8,0"
+                                              Stroke="{StaticResource GoldBrush}" StrokeThickness="1.5"
+                                              VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="contentPresenter"
+                        Content="{TemplateBinding SelectionBoxItem}"
+                        ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                        ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                        Margin="8,6,30,6"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        IsHitTestVisible="False"/>
+                            <Popup x:Name="PART_Popup"
+                           IsOpen="{TemplateBinding IsDropDownOpen}"
+                           AllowsTransparency="True"
+                           Focusable="False"
+                           Placement="Bottom"
+                           PlacementTarget="{Binding ElementName=templateRoot}"
+                           MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
                                 <Border Background="#252525" BorderBrush="{StaticResource GoldDim}"
-                                        BorderThickness="1" CornerRadius="0,0,4,4"
-                                        MaxHeight="200">
-                                    <ScrollViewer>
+                                BorderThickness="1" CornerRadius="0,0,4,4"
+                                MaxHeight="200">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
                                         <ItemsPresenter/>
                                     </ScrollViewer>
                                 </Border>
@@ -143,7 +163,7 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsDropDownOpen" Value="True">
-                                <Setter Property="BorderBrush" Value="{StaticResource GoldBrush}"/>
+                                <Setter TargetName="toggleButton" Property="BorderBrush" Value="{StaticResource GoldBrush}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

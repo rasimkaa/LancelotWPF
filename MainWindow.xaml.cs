@@ -63,7 +63,7 @@ namespace LancelotWPF
                         SELECT TOP 8 o.OrderId AS [№], s.Name AS [Магазин],
                                CONVERT(varchar,o.OrderDate,104) AS [Дата],
                                o.Status AS [Статус],
-                               FORMAT(o.TotalAmount,'N0')+' ₽' AS [Сумма]
+                               FORMAT(o.TotalAmount,'N0')+' руб.' AS [Сумма]
                         FROM Orders o JOIN Stores s ON o.StoreId=s.StoreId
                         ORDER BY o.OrderDate DESC").DefaultView;
             }

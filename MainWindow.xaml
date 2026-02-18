@@ -50,7 +50,7 @@
 
                     <StackPanel Grid.Row="2" Margin="20,0,20,18">
                         <Rectangle Height="1" Fill="{StaticResource BorderBrush2}" Margin="0,0,0,12"/>
-                        <TextBlock Text="v 1.0  ·  2024" Foreground="{StaticResource TextSecondary}"
+                        <TextBlock Text="v 1.0  ·  2026" Foreground="{StaticResource TextSecondary}"
                                    FontSize="11" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Grid>
@@ -137,13 +137,13 @@
                                 <TextBlock Text="БРЕНДЫ" Foreground="{StaticResource TextSecondary}"
                                            FontSize="10" Margin="0,0,0,10"/>
                                 <Border Background="{StaticResource BgCard}" CornerRadius="8" Padding="0,0,0,8">
-                                    <DataGrid x:Name="DashBrandsGrid" Style="{StaticResource GoldGrid}" MaxHeight="220"/>
+                                    <DataGrid x:Name="DashBrandsGrid" Style="{StaticResource GoldGrid}" MaxHeight="220" AutoGenerateColumns="True"/>
                                 </Border>
 
                                 <TextBlock Text="ПОСЛЕДНИЕ ЗАКАЗЫ" Foreground="{StaticResource TextSecondary}"
                                            FontSize="10" Margin="0,24,0,10"/>
                                 <Border Background="{StaticResource BgCard}" CornerRadius="8" Padding="0,0,0,8">
-                                    <DataGrid x:Name="DashOrdersGrid" Style="{StaticResource GoldGrid}" MaxHeight="220"/>
+                                    <DataGrid x:Name="DashOrdersGrid" Style="{StaticResource GoldGrid}" MaxHeight="220" AutoGenerateColumns="True"/>
                                 </Border>
                             </StackPanel>
                         </ScrollViewer>
@@ -180,7 +180,7 @@
                                         <DataGridTextColumn Header="Категория" Binding="{Binding Category}"  Width="110"/>
                                         <DataGridTextColumn Header="Размер"    Binding="{Binding Size}"      Width="70"/>
                                         <DataGridTextColumn Header="Цвет"      Binding="{Binding Color}"     Width="100"/>
-                                        <DataGridTextColumn Header="Цена, ₽"   Binding="{Binding Price}"     Width="90"/>
+                                        <DataGridTextColumn Header="Цена, руб."   Binding="{Binding Price}"     Width="90"/>
                                         <DataGridTextColumn Header="Остаток"   Binding="{Binding Stock}"     Width="80"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -281,7 +281,7 @@
                                         <DataGridTextColumn Header="Магазин"  Binding="{Binding Store}"       Width="*"/>
                                         <DataGridTextColumn Header="Дата"     Binding="{Binding OrderDate}"   Width="130"/>
                                         <DataGridTextColumn Header="Статус"   Binding="{Binding Status}"      Width="120"/>
-                                        <DataGridTextColumn Header="Сумма, ₽" Binding="{Binding TotalAmount}" Width="110"/>
+                                        <DataGridTextColumn Header="Сумма, руб." Binding="{Binding TotalAmount}" Width="110"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Border>
@@ -293,8 +293,8 @@
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Header="Товар"    Binding="{Binding Product}"   Width="*"/>
                                         <DataGridTextColumn Header="Кол-во"   Binding="{Binding Quantity}"  Width="80"/>
-                                        <DataGridTextColumn Header="Цена, ₽"  Binding="{Binding UnitPrice}" Width="100"/>
-                                        <DataGridTextColumn Header="Итого, ₽" Binding="{Binding Total}"     Width="110"/>
+                                        <DataGridTextColumn Header="Цена, руб."  Binding="{Binding UnitPrice}" Width="100"/>
+                                        <DataGridTextColumn Header="Итого, руб." Binding="{Binding Total}"     Width="110"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Border>
